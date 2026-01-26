@@ -4,7 +4,8 @@
     "license": "MIT",
     "exports": "./mod.ts",
     "tasks": {
-        "publish": "deno --allow-all ../../publish.ts && deno publish"
+		"p": "deno --allow-all ../../publish.ts && deno publish",
+		"t": "deno --allow-all --watch test.js"
     },
     "lint": {
         "rules": {

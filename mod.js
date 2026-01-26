@@ -1,8 +1,6 @@
-type mydate = Date | string | number;
-
 const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 
-export const DT: any = {
+export const DT = {
     nd: function() {
         return new Date(Date.now() - timezoneOffset);
     },
@@ -20,8 +18,8 @@ export const DT: any = {
         rangeSeparator: ' — ',
     },
 
-    WorkingWeekdays: [1, 2, 3, 4, 5] as any,
-    NonWorkingDates: [] as any,
+    WorkingWeekdays: [1, 2, 3, 4, 5],
+    NonWorkingDates: [],
 
     ruUnits: {
         'год': 'Y',
@@ -30,10 +28,10 @@ export const DT: any = {
         'месяц': 'M',
         'неделя': 'w',
         'рабочий день': 'workingDay',
-    } as any,
+    },
 
     // this.TimeZone = context.UserId ? getUserDetails(context.UserId).TimeZone.IanaId : null;
-    WorkingSatSun: [] as any, // рабочие сб, вс
+    WorkingSatSun: [], // рабочие сб, вс
 
     // форматы представления дат
     // d - день, m - месяц, Y - год, H - часы, i - минуты, S - секунды
@@ -48,7 +46,7 @@ export const DT: any = {
      * @param {Date|String} d
      * @returns {Boolean}
      */
-    is: function (d: mydate): boolean {
+    is: function (d) {
         // '0000(-.)00(-.)00(T )00:00(:00)(.000)(Z)'
 
         const rx_d = /^\d{1,4}([-/.])\d{1,2}\1\d{1,4}$/;
@@ -66,7 +64,7 @@ export const DT: any = {
         );
     },
 
-    getFormatFromDate: function (input_dt: mydate) {
+    getFormatFromDate: function (input_dt) {
         return (input_dt instanceof Date || typeof input_dt === 'number') ? this.DT_SQL : (input_dt.includes(':') ? this.DT_SQL : this.D_SQL);
     },
 
@@ -79,7 +77,7 @@ export const DT: any = {
      * @param {String} format формат вывода даты
      * @returns {String} новое время в нужном формате
      */
-    add: function (input_dt: mydate, add: number, unit: string, format = '') {
+    add: function (input_dt, add, unit, format = '') {
         if (this.ruUnits[unit]) {
             unit = this.ruUnits[unit];
         }
@@ -90,7 +88,7 @@ export const DT: any = {
 
         format ||= this.getFormatFromDate(input_dt);
 
-        let ms: any = +this.format(input_dt, 'U');
+        let ms = +this.format(input_dt, 'U');
         if (add) {
             if (['M', 'Q', 'Y'].includes(unit)) {
                 ms = new Date(ms);
@@ -99,7 +97,7 @@ export const DT: any = {
                     ? ms.setFullYear(ms.getFullYear() + add)
                     : ms.setMonth(ms.getMonth() + add * (unit === 'Q' ? 3 : 1));
             } else {
-                const multi: any = {
+                const multi = {
                     s: 1000, m: 60000, h: 3600000, d: 86400000, w: 7 * 86400000,
                 }, m = multi[unit];
 
@@ -111,7 +109,7 @@ export const DT: any = {
         return this.format(new Date(ms), format);
     },
 
-    isWorkingDay: function (input_dt: mydate) {
+    isWorkingDay: function (input_dt) {
         var dt = input_dt instanceof Date ? this.format(input_dt, this.D_SQL) : input_dt;
         return (
             (~this.WorkingWeekdays.indexOf(this.format(dt, 'w')) && !~this.NonWorkingDates.indexOf(dt)) ||
@@ -126,11 +124,11 @@ export const DT: any = {
      * @param {Date|String} input_dt Начальная дата
      * @returns {String} Дата в формате 'Y-m-d'
      */
-    addWorkingDays: function (add: number, input_dt: mydate = '', format: any = null): mydate {
+    addWorkingDays: function (add, input_dt = '', format = null) {
         input_dt ||= this.curdate;
         add = Math.round(add);
 
-        const working = (input_dt: mydate) =>
+        const working = (input_dt) =>
             (~this.WorkingWeekdays.indexOf(this.format(input_dt, 'w')) && !~this.NonWorkingDates.indexOf(input_dt)) ||
             ~this.WorkingSatSun.indexOf(input_dt);
 
@@ -170,7 +168,7 @@ export const DT: any = {
      * @param {Date|String} dt0 Дата 2
      * @returns {Number} Разница между датами в днях
      */
-    diffD: function (dt1: mydate, dt0: mydate) {
+    diffD: function (dt1, dt0) {
         return Math.round((+this.format(dt1, 'U') - +this.format(dt0, 'U')) / 86400000);
     },
     /**
@@ -179,7 +177,7 @@ export const DT: any = {
      * @param {Date|String} dt0 Дата 2
      * @returns {Number} Разница между датами в минутах
      */
-    diffM: function (dt1: mydate, dt0: mydate) {
+    diffM: function (dt1, dt0) {
         return Math.round((+this.format(dt1, 'U') - +this.format(dt0, 'U')) / 60000);
     },
     /**
@@ -188,7 +186,7 @@ export const DT: any = {
      * @param {Date|String} dt0 Дата 2
      * @returns {Number} Разница между датами в секундах
      */
-    diffSec: function (dt1: mydate, dt0: mydate) {
+    diffSec: function (dt1, dt0) {
         return Math.round((+this.format(dt1, 'U') - +this.format(dt0, 'U')) / 1000);
     },
     /**
@@ -196,7 +194,7 @@ export const DT: any = {
      * @param {Date|String} input_dt
      * @returns {String} Возвращает прошедшее время в человекочитаемом формате
      */
-    fromNow: function (input_dt: mydate) {
+    fromNow: function (input_dt) {
         let ms = Date.now() - +this.format(input_dt, 'U'),
             r = '';
 
@@ -213,11 +211,11 @@ export const DT: any = {
         return r + ' назад';
     },
 
-    addRoundMonths: function (input_dt: mydate, add: number) {
-        function isLeapYear(year: number) {
+    addRoundMonths: function (input_dt, add) {
+        function isLeapYear(year) {
             return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
         }
-        function getDaysInMonth(year: number, month: number) {
+        function getDaysInMonth(year, month) {
             return [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
         }
 
@@ -231,7 +229,7 @@ export const DT: any = {
         return this.format(tmp, this.D_SQL);
     },
 
-    getMonthDays: function (Ym: string) {
+    getMonthDays: function (Ym) {
         const [Y, m] = Ym.split('-');
         return new Date(+Y, +m, 0).getDate();
     },
@@ -245,7 +243,7 @@ export const DT: any = {
      * @returns {Number|String} Если формат простой (1 символ) -
      * то возвращается число или строка, иначе - строка
      */
-    format: function (input_dt: mydate | number, format = ''): string | number {
+    format: function (input_dt, format = '') {
         if (!input_dt) return '';
         let dt;
         if (input_dt instanceof Date) {
@@ -298,7 +296,7 @@ export const DT: any = {
         var [_, year, month, day, hour, minute, second] = dt.toISOString().match(/^(\d+)-(\d+)-(\d+).(\d+):(\d+):(\d+)\.(\d+)/) || [];
         while (++i < length) {
             const f = format[i];
-            let d: any = f; // to keep symbol in case it's not in a format
+            let d = f; // to keep symbol in case it's not in a format
             switch (f) {
                 case 'd': case 'j': //case 'J' // 1st 2nd 3rd
                     d = +day;
@@ -363,7 +361,7 @@ export const DT: any = {
      * или написать самому - https://flatpickr.js.org/formatting/)
      * @returns {Number|String} Текущее время
      */
-    now: function (format: string) { return this.format(Date(), format || this.D_SQL + ' ' + this.T_SQL) },
+    now: function (format) { return this.format(Date(), format || this.D_SQL + ' ' + this.T_SQL) },
     /**
      * Текущая дата в формате 'Y-m-d'
      */
@@ -373,7 +371,7 @@ export const DT: any = {
      * @param {Date|String|Number} input_dt Дата или отдельный год
      * @returns {Boolean} Вискосный год или нет
      */
-    isLeapYear: function (input_dt: mydate) {
+    isLeapYear: function (input_dt) {
         const dt = input_dt instanceof Date ? input_dt : (input_dt ? new Date(String(input_dt)) : this.nd());
         const year = dt.getFullYear();
         return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
