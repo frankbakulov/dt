@@ -1,3 +1,4 @@
+/* @ts-self-types="./mod.d.ts" */
 const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 
 export const DT = {

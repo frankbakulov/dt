@@ -1,22 +1,22 @@
 {
-    "name": "@frankbakulov/dt",
-    "version": "0.1.2",
-    "license": "MIT",
-    "exports": "./mod.ts",
-    "tasks": {
+	"name": "@frankbakulov/dt",
+	"version": "0.1.5",
+	"license": "MIT",
+	"exports": "./mod.js",
+	"tasks": {
 		"p": "deno --allow-all ../../publish.ts && deno publish",
 		"t": "deno --allow-all --watch test.js"
-    },
-    "lint": {
-        "rules": {
-            "exclude": [
-                "no-inner-declarations",
-                "no-var",
-                "prefer-const",
-                "no-explicit-any",
-                "no-import-prefix",
-                "no-case-declarations"
-            ]
-        }
-    }
+	},
+	"lint": {
+		"rules": {
+			"exclude": [
+				"no-inner-declarations",
+				"no-var",
+				"prefer-const",
+				"no-explicit-any",
+				"no-import-prefix",
+				"no-case-declarations"
+			]
+		}
+	}
 }
