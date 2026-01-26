@@ -1,0 +1,21 @@
+{
+    "name": "@frankbakulov/dt",
+    "version": "0.1.2",
+    "license": "MIT",
+    "exports": "./mod.ts",
+    "tasks": {
+        "publish": "deno --allow-all ../../publish.ts && deno publish"
+    },
+    "lint": {
+        "rules": {
+            "exclude": [
+                "no-inner-declarations",
+                "no-var",
+                "prefer-const",
+                "no-explicit-any",
+                "no-import-prefix",
+                "no-case-declarations"
+            ]
+        }
+    }
+}
