@@ -40,7 +40,7 @@ Deno.test({
 Deno.test({
 	name: 'DT.add',
 	fn() {
-		assertEquals(DT.add('2023-01-01', 1, 'd'), '2023-01-02');
+		assertEquals(DT.add(null, 0, 'd', DT.D_SQL), DT.curdate);
 		assertEquals(DT.add('2023-01-01', 1, 'M'), '2023-02-01');
 		assertEquals(DT.add('2023-01-01', 1, 'Y'), '2024-01-01');
 		assertEquals(DT.add('2023-01-01', 1, 'Q'), '2023-04-01');

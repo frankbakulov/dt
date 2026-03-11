@@ -71,7 +71,7 @@ export const DT = {
 
 	/**
 	 * Добавление времени
-	 * @param {Date|String} input_dt изначальная дата/время
+	 * @param {Date|String|Number} input_dt изначальная дата/время
 	 * @param {Number} add количество добавляемых единиц
 	 * @param {String} unit добавляемая единица
 	 * (M - месяц, s - секунда, m - минута, h - час, d - день)
@@ -79,6 +79,7 @@ export const DT = {
 	 * @returns {String} новое время в нужном формате
 	 */
 	add: function (input_dt, add, unit, format = '') {
+		typeof input_dt === 'number' || (input_dt ||= this.now());
 		if (this.ruUnits[unit]) {
 			unit = this.ruUnits[unit];
 		}
