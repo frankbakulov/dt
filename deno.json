@@ -1,10 +1,10 @@
 {
 	"name": "@frankbakulov/dt",
-	"version": "0.1.8",
+	"version": "0.1.9",
 	"license": "MIT",
 	"exports": "./mod.js",
 	"tasks": {
-		"p": "deno update --latest && deno --allow-all ../../publish.ts && git commit -a -m 'version' && deno publish",
+		"p": "deno update --latest && deno --allow-all ../../publish.ts && git commit -a -m 'version' && git push && deno publish",
 		"t": "deno --allow-all --watch test.js"
 	},
 	"lint": {

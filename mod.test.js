@@ -38,17 +38,6 @@ Deno.test({
 });
 
 Deno.test({
-	name: 'DT.add',
-	fn() {
-		assertEquals(DT.add(null, 0, 'd', DT.D_SQL), DT.curdate);
-		assertEquals(DT.add('2023-01-01', 1, 'M'), '2023-02-01');
-		assertEquals(DT.add('2023-01-01', 1, 'Y'), '2024-01-01');
-		assertEquals(DT.add('2023-01-01', 1, 'Q'), '2023-04-01');
-		assertEquals(DT.add('2023-01-01 12:00:00', 1, 'h'), '2023-01-01 13:00:00');
-	},
-});
-
-Deno.test({
 	name: 'DT.isWorkingDay',
 	fn() {
 		assert(DT.isWorkingDay('2023-01-02')); // Monday
@@ -146,3 +135,25 @@ Deno.test({
 	},
 });
 
+
+Deno.test({
+	name: 'DT.add',
+	fn() {
+		assertEquals(DT.add(null, 0, 'd', DT.D_SQL), DT.curdate);
+		assertEquals(DT.add('2023-01-1', 1, 'M'), '2023-02-01');
+		assertEquals(DT.add('2023-02-1', 1, 'M'), '2023-03-01');
+		assertEquals(DT.add('2023-03-1', 1, 'M'), '2023-04-01');
+		assertEquals(DT.add('2023-04-1', 1, 'M'), '2023-05-01');
+		assertEquals(DT.add('2023-05-1', 1, 'M'), '2023-06-01');
+		assertEquals(DT.add('2023-06-1', 1, 'M'), '2023-07-01');
+		assertEquals(DT.add('2023-07-1', 1, 'M'), '2023-08-01');
+		assertEquals(DT.add('2023-08-1', 1, 'M'), '2023-09-01');
+		assertEquals(DT.add('2023-09-1', 1, 'M'), '2023-10-01');
+		assertEquals(DT.add('2023-10-1', 1, 'M'), '2023-11-01');
+		assertEquals(DT.add('2023-11-1', 1, 'M'), '2023-12-01');
+		assertEquals(DT.add('2023-12-1', 1, 'M'), '2024-01-01');
+		assertEquals(DT.add('2023-01-01', 1, 'Y'), '2024-01-01');
+		assertEquals(DT.add('2023-01-01', 1, 'Q'), '2023-04-01');
+		assertEquals(DT.add('2023-01-01 12:00:00', 1, 'h'), '2023-01-01 13:00:00');
+	},
+});

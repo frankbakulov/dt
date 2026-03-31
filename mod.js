@@ -89,15 +89,14 @@ export const DT = {
 		}
 
 		format ||= this.getFormatFromDate(input_dt);
-
 		let ms = +this.format(input_dt, 'U');
 		if (add) {
 			if (['M', 'Q', 'Y'].includes(unit)) {
 				ms = new Date(ms);
 
 				ms = unit === 'Y'
-					? ms.setFullYear(ms.getFullYear() + add)
-					: ms.setMonth(ms.getMonth() + add * (unit === 'Q' ? 3 : 1));
+					? ms.setUTCFullYear(ms.getUTCFullYear() + add)
+					: ms.setUTCMonth(ms.getUTCMonth() + add * (unit === 'Q' ? 3 : 1));
 			} else {
 				const multi = {
 					s: 1000, m: 60000, h: 3600000, d: 86400000, w: 7 * 86400000,
