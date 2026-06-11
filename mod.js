@@ -5,31 +5,11 @@ export const DT = {
 	nd: function () {
 		return new Date(Date.now() - timezoneOffset);
 	},
-	locale: {
-		weekdays: {
-			shorthand: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-			longhand: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-		},
-		months: {
-			shorthand: [null, 'Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-			longhand: [null, 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-			parental: [null, 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-				'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
-		},
-		rangeSeparator: ' — ',
-	},
+	locale: {},
 
 	WorkingWeekdays: [1, 2, 3, 4, 5],
 	NonWorkingDates: [],
 
-	ruUnits: {
-		'год': 'Y',
-		'календарный день': 'd',
-		'квартал': 'Q',
-		'месяц': 'M',
-		'неделя': 'w',
-		'рабочий день': 'workingDay',
-	},
 
 	// this.TimeZone = context.UserId ? getUserDetails(context.UserId).TimeZone.IanaId : null;
 	WorkingSatSun: [], // рабочие сб, вс
@@ -65,6 +45,10 @@ export const DT = {
 		);
 	},
 
+	setLocale: function (locale) {
+		return import(`./locale/${locale}.js`).then((locale) => this.locale = locale.default);
+	},
+
 	getFormatFromDate: function (input_dt) {
 		return (input_dt instanceof Date || typeof input_dt === 'number') ? this.DT_SQL : (input_dt.includes(':') ? this.DT_SQL : this.D_SQL);
 	},
@@ -80,8 +64,8 @@ export const DT = {
 	 */
 	add: function (input_dt, add, unit, format = '') {
 		typeof input_dt === 'number' || (input_dt ||= this.now());
-		if (this.ruUnits[unit]) {
-			unit = this.ruUnits[unit];
+		if (this.locale.ruUnits[unit]) {
+			unit = this.locale.ruUnits[unit];
 		}
 
 		if (unit === 'workingDay') {
@@ -375,3 +359,5 @@ export const DT = {
 		return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 	},
 };
+
+DT.setLocale('ru');

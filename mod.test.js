@@ -103,8 +103,10 @@ Deno.test({
 Deno.test({
 	name: 'DT.format',
 	fn() {
+		assertEquals(DT.format(123000, 'i:S'), '02:03');
 		assertEquals(DT.format('2023-01-01', 'Y-m-d'), '2023-01-01');
 		assertEquals(DT.format('2023-01-01 12:00:00', 'H:i'), '12:00');
+		assertEquals(DT.format('2023-01-01', 'd F f'), '01 Январь января');
 		assertEquals(DT.format(new Date('2023-01-01'), 'd.m.Y'), '01.01.2023');
 		assertEquals(DT.format(1672531200000, 'U'), 1672531200000);
 	},
