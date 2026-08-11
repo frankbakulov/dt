@@ -14,7 +14,7 @@ export const DT = {
 	// this.TimeZone = context.UserId ? getUserDetails(context.UserId).TimeZone.IanaId : null;
 	WorkingSatSun: [], // рабочие сб, вс
 
-	// форматы представления дат
+	// форматы дат
 	// d - день, m - месяц, Y - год, H - часы, i - минуты, S - секунды
 	D_STD: 'd.m.Y',
 	T_STD: 'H:i',
